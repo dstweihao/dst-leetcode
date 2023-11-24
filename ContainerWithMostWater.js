@@ -1,28 +1,28 @@
-
 /**
  * @param {number[]} height
  * @return {number}
  */
 
 let height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
-let output = 49
+let maxA = 49
 
 var maxArea = function (height) {
-    let maxArea =0
-
+    let area =0
     for (let i = 0; i < height.length; i++) {
-        for (let j = 0; j < height.length - 1 - i; j++) {
-            console.log('---',  height[i] + '===' + height[j + 1])
-
-            let l = j + 1 - i
-            let h = height[i] < height[j + 1] ? height[i] : height[j]
-
-            let value = l * h
-
-            // console.log('maxArea :', maxArea);
-
+        for (let j = i + 1; j < height.length; j++) {
+            let left = height[i]
+            let right = height[j]
+            let l = j - i
+            let h = left < right ? left : right
+            // console.log('left: ', left, '====', 'right: ', right);
+            if (l * h > area) {
+                area = l * h
+            }
         }
     }
+    console.log('area: ', area);
+
+    return area
 };
 
 maxArea(height)
