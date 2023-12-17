@@ -3,47 +3,37 @@
  * @return {boolean}
  */
 
-// s ="(]"
-// const str = "(){}"
-// 6,
-// let str = "{[{}]}"
-let str = "(([]){})"
-
-
-let strLeft = '([{'
-let strRight = ')]}'
+const str = "()[]{}"
 
 var isValid = function (str) {
-    let nextReslut = true
-    let symReslut = true
 
-    // 如果字符串长度不是偶数，意味着括号不是成对的，所以结果是false
+    // 如果字符串长度不是偶数，则说明不是成对的，可直接返回false
     if (str.length % 2 !== 0) {
-        return nextReslut, symReslut = false
+        return false
     }
+    // 左右括号映射关系
+    const map = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+    // 创建一个数组
+    let stack = []
     for (let i = 0; i < str.length; i++) {
-        const current = str[i];
-        const next = str[i + 1];
-        if (i % 2 == 0) {
-            if (strLeft.indexOf(current) == -1 || strRight.indexOf(next) == -1 || next !== strRight.charAt(strLeft.indexOf(current))) {
-                nextReslut = false
-                break
+        const s = str[i]
+        // 如果是左括号，则入栈
+        if (s == '(' || s == '[' || s == '{') {
+            stack.push(s)
+        } else {
+            // 如果是右括号，stack.pop()栈顶的左括号出栈，获取它映射的右括号，进行比较，如果不相等，直接返回false。
+            if (s !== map[stack.pop()]) {
+                return false
             }
         }
     }
-    for (let i = 0; i < str.length; i++) {
-        const current = str[i];
-        const sym = str[str.length - 1 - i]
-        if (i < str.length / 2) {
-            if (strLeft.indexOf(current) == -1 || strRight.indexOf(sym) == -1 || sym !== strRight.charAt(strLeft.indexOf(current))) {
-                symReslut = false
-                break
-            }
-        }
-    }
-    return nextReslut || symReslut
-};
+    // 当stack长度为空，说明左右括号一一对应。
+    return stack.length == 0
 
-// isValid(str)
+};
 
 
