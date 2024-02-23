@@ -1,5 +1,3 @@
-
-// [0, 1, 2, 3, 4, 5]
 var arr = [3, 0, 1, 1, 9, 7], a = 7, b = 2, c = 3
 
 var countGoodTriplets = function (arr, a, b, c) {
