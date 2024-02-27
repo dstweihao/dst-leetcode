@@ -23,7 +23,7 @@ var addToArrayForm = function (num, k) {
         }
     }
     return outNum
-};
+}
 
 
 addToArrayForm(num, k)
