@@ -6,19 +6,39 @@
 const queens = [[0, 1], [1, 0], [4, 0], [0, 4], [3, 3], [2, 4]], king = [0, 0]
 const out = [[0, 1], [1, 0], [3, 3]]
 const queensAttacktheKing = function (queens, king) {
-    let result = []
-    for (const element of queens) {
-        // 判断国王四周，如果x或者y相减为0，意味着与国王位置在一条直线上
-        if (Math.abs(element[0] - king[0]) == 0 || Math.abs(element[1] - king[1]) == 0) {
-            result.push(element)
-        }
-        // 判断对角线
-        if (Math.abs(element[0] - king[0]) == Math.abs(element[1] - king[1])) {
-            result.push(element)
+    // 初始化棋盘
+    const board = Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => null))
+    // 将皇后的位置在棋盘上显示
+    queens.forEach(q => {
+        board[q[0]][q[1]] = 'Q'
+    })
+    let res = []
+    // 定义八个方向，用于从坐标轴顺时针依次遍历
+    const direction = [
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+        [-1, -1]
+    ]
+
+    for (const element of direction) {
+        const [dx, dy] = element
+        let x = king[0] + dx
+        let y = king[1] + dy
+        while (x >= 0 && x < 8 && y >= 0 && y < 8) {
+            if (board[x][y] === 'Q') {
+                res.push([x, y])
+                break
+            }
+            x += dx
+            y += dy
         }
 
     }
-    return result
+    return res
 };
 
-console.log(queensAttacktheKing(queens, king))
