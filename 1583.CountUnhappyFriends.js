@@ -26,7 +26,7 @@ const pairs = [
 - 1 与 3 的亲近程度比 1 与 0 高。
 朋友 0 和 2 都是开心的。
  */
-var unhappyFriends = function (n, preferences, pairs) {
+const unhappyFriends = function (n, preferences, pairs) {
 
 };
 
