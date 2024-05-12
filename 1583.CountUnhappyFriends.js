@@ -27,7 +27,7 @@ const pairs = [
 朋友 0 和 2 都是开心的。
  */
 var unhappyFriends = function (n, preferences, pairs) {
-
+    
 };
 
 console.log(unhappyFriends(n, preferences, pairs))
