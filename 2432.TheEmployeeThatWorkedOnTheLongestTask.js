@@ -4,24 +4,32 @@
  * @return {number}
  */
 
-let n = 10, logs = [[0, 3], [2, 5], [0, 9], [1, 15]]
-let hardestWorker = function (_n, logs) {
-    let longTime = logs[0][1]
-    let difference = [[logs[0][0], logs[0][1]]]
-    logs.forEach((_log, i) => {
-        if (i >= logs.length - 1) {
-            return
+let n = 10, logs = [[0,3],[2,5],[0,9],[1,15]]
+const hardestWorker = function (n, logs) {
+    let longestDuration = logs[0][1];
+    let employeeDurationDifferences = [[logs[0][0], logs[0][1]]];
+
+    logs.forEach((log, index) => {
+        if (index >= logs.length - 1) {
+            return;
         }
-        difference.push([logs[i + 1][0], logs[i + 1][1] - logs[i][1]])
-        longTime = Math.max(longTime, logs[i + 1][1] - logs[i][1])
+        const currentTimeDiff = logs[index + 1][1] - logs[index][1];
+        employeeDurationDifferences.push([logs[index + 1][0], currentTimeDiff]);
+        longestDuration = Math.max(longestDuration, currentTimeDiff);
     });
-    const fill = difference.filter(diff => {
-        return diff[1] == 6
-    })
-    let fiu = []
-    fill.forEach(ite=>{
-        fiu.push(ite[0])
-    })
-    return Math.min(...fiu)
-};
+
+    const longestDurationEmployees = employeeDurationDifferences.filter(diff => diff[1] === longestDuration);
+
+    // 如果只存在一个员工是这个任务时长，则直接返回该员工的ID
+    if (longestDurationEmployees.length == 1) {
+        return longestDurationEmployees[0][0]
+    }
+
+    let longestDurationEmployeeIds = [];
+    longestDurationEmployees.forEach(record => {
+        longestDurationEmployeeIds.push(record[0]);
+    });
+    return Math.min(...longestDurationEmployeeIds);
+}
 hardestWorker(n, logs)
+console.log("🚀 ~ hardestWorker(n, logs):", hardestWorker(n, logs))
